@@ -1,0 +1,32 @@
+header{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    border-bottom: 1px solid rgb(1, 0, 0);
+}
+.login{
+    width: 20%;
+    display: flex;
+    justify-content: space-evenly;
+    font-family: monospace;
+}
+.logo{
+    width: 60px;
+}
+body{
+    font-family: monospace;
+}
+h1{
+    font-size: 50px;
+    width: 50%;
+    padding-left: 10px;
+}
+.primeira_parte{
+    display: flex;
+    flex-direction: row;
+}
+.img_xadrez{
+    width: 60%;
+    padding-top: 3px;
+
+}
