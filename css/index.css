@@ -1,32 +1,118 @@
-header{
+html {
+    box-sizing: border-box;
+}
+
+*,
+*:before,
+*:after {
+    box-sizing: inherit;
+}
+
+.roboto-thin {
+    font-family: "Roboto", sans-serif;
+    font-weight: 100;
+    font-style: normal;
+}
+
+.roboto-light {
+    font-family: "Roboto", sans-serif;
+    font-weight: 300;
+    font-style: normal;
+}
+
+.roboto-regular {
+    font-family: "Roboto", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.roboto-medium {
+    font-family: "Roboto", sans-serif;
+    font-weight: 500;
+    font-style: normal;
+}
+
+.roboto-bold {
+    font-family: "Roboto", sans-serif;
+    font-weight: 700;
+    font-style: normal;
+}
+
+.roboto-black {
+    font-family: "Roboto", sans-serif;
+    font-weight: 900;
+    font-style: normal;
+}
+
+.roboto-thin-italic {
+    font-family: "Roboto", sans-serif;
+    font-weight: 100;
+    font-style: italic;
+}
+
+.roboto-light-italic {
+    font-family: "Roboto", sans-serif;
+    font-weight: 300;
+    font-style: italic;
+}
+
+.roboto-regular-italic {
+    font-family: "Roboto", sans-serif;
+    font-weight: 400;
+    font-style: italic;
+}
+
+.roboto-medium-italic {
+    font-family: "Roboto", sans-serif;
+    font-weight: 500;
+    font-style: italic;
+}
+
+.roboto-bold-italic {
+    font-family: "Roboto", sans-serif;
+    font-weight: 700;
+    font-style: italic;
+}
+
+.roboto-black-italic {
+    font-family: "Roboto", sans-serif;
+    font-weight: 900;
+    font-style: italic;
+}
+
+header {
     display: flex;
+    align-items: center;
     flex-direction: row;
     justify-content: space-between;
     border-bottom: 1px solid rgb(1, 0, 0);
+    box-shadow: 0 0 5px rgb(105, 0, 0, 0.322);
 }
-.login{
+
+.login {
     width: 20%;
     display: flex;
     justify-content: space-evenly;
-    font-family: monospace;
+    font-family: Roboto;
 }
-.logo{
-    width: 60px;
+
+.logo {
+    width: 80px;
 }
-body{
-    font-family: monospace;
+
+body {
+    font-family: Roboto;
 }
-h1{
+
+h1 {
     font-size: 50px;
     width: 50%;
     padding-left: 10px;
 }
-.primeira_parte{
-    display: flex;
-    flex-direction: row;
-}
-.img_xadrez{
-    width: 60%;
-    padding-top: 3px;
 
+.img_xadrez {
+    background-image: url(../img/board-background.png);
+    background-position: center top;
+    display: flex;
+    height: 400px;
 }

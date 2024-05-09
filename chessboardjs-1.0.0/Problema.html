@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <p>Partida aleatória Math.random() X Math.random()</p>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="js/chessboard-1.0.0.js"></script>
+    <link rel="stylesheet" href="css/chessboard-1.0.0.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/chess.js/0.10.2/chess.js"
+        integrity="sha384-s3XgLpvmHyscVpijnseAmye819Ee3yaGa8NxstkJVyA6nuDFjt59u1QvuEl/mecz" crossorigin="anonymous">
+        </script>
+    <script src="js/stockfish.js"></script>
+</head>
+
+<body>
+    <div id="myBoard" style="width: 400px"></div>
+    <div id="bestMove"></div>
+    <div id="message"></div>
+</body>
+
+</html>
+<script>
+    // Função para criar um tabuleiro de xadrez aleatório
+    function criarTabuleiroAleatorio() {
+        var jogo = new Chess();
+        for (var i = 0; i < 30; i++) {
+            var movimentos = jogo.moves();
+            var movimentoAleatorio = movimentos[Math.floor(Math.random() * movimentos.length)];
+            jogo.move(movimentoAleatorio);
+        }
+        return jogo.fen();
+    }
+
+    // Inicialize o tabuleiro de xadrez e o Stockfish
+    var tabuleiro = criarTabuleiroAleatorio();
+    var engine = new Worker('js/stockfish.js');
+
+    // Enviar comando para o Stockfish
+    engine.postMessage('uci');
+    engine.postMessage('position fen ' + tabuleiro);
+
+    // Enviar comando para obter a melhor jogada do Stockfish
+    engine.postMessage('go depth 15');
+
+    // Quando a mensagem do Stockfish é recebida
+    engine.onmessage = function (event) {
+        var melhorJogada = event.data.split(' ')[1];
+        document.getElementById('bestMove').innerText = 'Melhor jogada: ' + melhorJogada;
+    };
+
+    // Inicializar o tabuleiro de xadrez interativo
+    var jogo = new Chess(tabuleiro); // Inicializar o jogo com a posição aleatória
+    var config = {
+        position: tabuleiro,
+        draggable: true,
+        onDrop: function (source, target) {
+            var movimento = jogo.move({
+                from: source,
+                to: target,
+                promotion: 'q'
+            });
+            // Verificar se o movimento é válido
+            if (movimento !== null) {
+                // Atualizar a posição do tabuleiro
+                tabuleiro = jogo.fen();
+                board.position(tabuleiro);
+
+                // Enviar comando para o Stockfish
+                engine.postMessage('position fen ' + tabuleiro);
+                engine.postMessage('go depth 15');
+
+                // Obter a melhor jogada do HTML
+                var melhorJogada = document.getElementById('bestMove').innerText.split(' ')[2];
+
+                // Comparar a jogada do usuário com a melhor jogada
+                if (source + target === melhorJogada) {
+                    message.innerHTML = 'Parabéns! Você fez a jogada correta!';
+                } else {
+                    message.innerHTML = 'Errou';
+                }
+            } else {
+                return 'snapback'; // Retorna a peça para a posição original
+            }
+        }
+    };
+    // Inicializar o tabuleiro de xadrez interativo
+    var board = Chessboard('myBoard', config);
+
+</script>

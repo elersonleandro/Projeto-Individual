@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <p>Partida aleatória Math.random() X Math.random()</p>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="js/chessboard-1.0.0.js"></script>
+    <link rel="stylesheet" href="css/chessboard-1.0.0.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/chess.js/0.10.2/chess.js"
+        integrity="sha384-s3XgLpvmHyscVpijnseAmye819Ee3yaGa8NxstkJVyA6nuDFjt59u1QvuEl/mecz" crossorigin="anonymous">
+        </script>
+    <script src="js/stockfish.js"></script>
+</head>
+
+<body>
+    <h1>Chess Against Stockfish</h1>
+    <div id="board" style="width: 400px"></div>
+    <div id="status"></div>
+
+    <script src="js/stockfish.js"></script>
+    <script>
+        var board = null;
+        var game = new Chess();
+        var engine = new Worker('stockfish.js');
+        engine.onmessage = onMessage;
+        engine.postMessage('uci');
+        engine.postMessage('ucinewgame');
+
+        function onDrop(source, target, piece, newPos, oldPos, orientation) {
+            // Verifica se o movimento é válido
+            var move = game.move({
+                from: source,
+                to: target,
+                promotion: 'q' // promove para uma rainha por padrão
+            });
+
+            // Se o movimento for inválido, retorna a peça para a posição original
+            if (move === null) {
+                return 'snapback';
+            }
+
+            // Atualiza a posição do tabuleiro
+            board.position(game.fen());
+
+            // Checa se o jogo acabou
+            if (game.game_over()) {
+                alert('Fim de jogo!');
+            } else {
+                // Se o jogo não acabou, o Stockfish faz sua jogada
+                engine.postMessage('position fen ' + game.fen());
+                engine.postMessage('go depth 15');
+            }
+        }
+
+        function onMessage(event) {
+            var move = event.data.split(' ')[1];
+            game.move(move, { sloppy: true });
+            board.position(game.fen());
+            if (game.game_over()) {
+                alert('Fim de jogo!');
+            }
+        }
+
+        board = Chessboard('board', {
+            draggable: true,
+            position: 'start',
+            onDrop: onDrop
+        });
+    </script>
+</body>
+
+</html>
