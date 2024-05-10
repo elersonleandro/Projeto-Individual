@@ -8,7 +8,7 @@ html {
     padding: 0;
     margin: 0;
     box-sizing: inherit;
-    font-family: Roboto;
+    /* font-family: Roboto; */
 }
 
 .roboto-thin {
@@ -88,9 +88,10 @@ header {
     align-items: center;
     flex-direction: row;
     justify-content: space-between;
-    border-bottom: 1px solid rgb(1, 0, 0);
+    border-bottom: 2px solid #404040;
     box-shadow: 0 0 5px rgb(105, 0, 0, 0.322);
-    background-color: #8d4925;
+    background-color: #b58863 ;
+    color: black;
 }
 
 .login {
@@ -113,10 +114,7 @@ body {
 }
 
 h1 {
-    font-size: 50px;
-    width: 50%;
-    padding-left: 10px;
-
+    color: black;
 }
 .land{
     display: flex;
@@ -124,18 +122,28 @@ h1 {
     justify-content: space-around;
     text-align: center;
     padding-top: 90px;
-
+    background-color:#f0d9b5;
 }
 .vocesabia{
     display: flex;
     justify-content: space-evenly;
     text-align: center;
-    padding-top: 120px;
+    padding-top: 10%;
     flex-direction: column;
     align-items: center;
+    background-color: #f0d9b5;
 }
 .vocesabia p{
     width: 50%;
     font-size: 25px;
-    padding-top: 20px;
+    padding-top: 3%;
+}
+.land img{
+    width: 30%;
+}
+.land h1{
+    width: 30%;
+    font-size: 50px;
+    padding-left: 10px;
+    color: black;
 }
