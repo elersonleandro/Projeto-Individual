@@ -23,7 +23,6 @@
 
 </html>
 <script>
-    // Função para criar um tabuleiro de xadrez aleatório
     function criarTabuleiroAleatorio() {
         var jogo = new Chess();
         for (var i = 0; i < 30; i++) {
@@ -34,24 +33,19 @@
         return jogo.fen();
     }
 
-    // Inicialize o tabuleiro de xadrez e o Stockfish
     var tabuleiro = criarTabuleiroAleatorio();
     var engine = new Worker('js/stockfish.js');
 
-    // Enviar comando para o Stockfish
     engine.postMessage('uci');
     engine.postMessage('position fen ' + tabuleiro);
 
-    // Enviar comando para obter a melhor jogada do Stockfish
     engine.postMessage('go depth 15');
 
-    // Quando a mensagem do Stockfish é recebida
     engine.onmessage = function (event) {
         var melhorJogada = event.data.split(' ')[1];
         document.getElementById('bestMove').innerText = 'Melhor jogada: ' + melhorJogada;
     };
 
-    // Inicializar o tabuleiro de xadrez interativo
     var jogo = new Chess(tabuleiro); // Inicializar o jogo com a posição aleatória
     var config = {
         position: tabuleiro,
@@ -62,20 +56,15 @@
                 to: target,
                 promotion: 'q'
             });
-            // Verificar se o movimento é válido
             if (movimento !== null) {
-                // Atualizar a posição do tabuleiro
                 tabuleiro = jogo.fen();
                 board.position(tabuleiro);
 
-                // Enviar comando para o Stockfish
                 engine.postMessage('position fen ' + tabuleiro);
                 engine.postMessage('go depth 15');
 
-                // Obter a melhor jogada do HTML
                 var melhorJogada = document.getElementById('bestMove').innerText.split(' ')[2];
 
-                // Comparar a jogada do usuário com a melhor jogada
                 if (source + target === melhorJogada) {
                     message.innerHTML = 'Parabéns! Você fez a jogada correta!';
                 } else {
@@ -86,7 +75,6 @@
             }
         }
     };
-    // Inicializar o tabuleiro de xadrez interativo
     var board = Chessboard('myBoard', config);
 
 </script>

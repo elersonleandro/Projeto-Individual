@@ -118,11 +118,14 @@ h1 {
 }
 .land{
     display: flex;
-    align-items: center;
+    background-image: url(../img/back.png) ;
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 100vw;
+    height: 100vh;
     justify-content: space-around;
+    align-items: center;
     text-align: center;
-    padding-top: 90px;
-    background-color:#f0d9b5;
 }
 .vocesabia{
     display: flex;
@@ -142,8 +145,12 @@ h1 {
     width: 30%;
 }
 .land h1{
-    width: 30%;
+    width: 30vw;
+    height: 60vh;
     font-size: 50px;
     padding-left: 10px;
     color: black;
+}
+.caixa_vazia{
+    width: 50%;
 }
