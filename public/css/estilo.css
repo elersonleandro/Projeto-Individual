@@ -142,8 +142,9 @@ body {
 .login {
   height: var(--tamanho-login);
   background-image: url('../img/back.png');
-  background-size: cover;
+  background-size: 100%;
   background-repeat: no-repeat;
+  height: 100vh;
 }
 
 .login .container {
