@@ -47,10 +47,6 @@
                          Assim que inserir vá para o script abaixo.
                      -->
           <div class="campo">
-            <span>Empresa:</span>
-            <select name="empresas" id="listaEmpresas">
-              <option selected>Selecione uma empresa</option>
-            </select>
           </div>
           <div class="campo">
             <span>Nome:</span>
@@ -82,7 +78,7 @@
   <!--footer inicio-->
   <footer>
     <img src="./img/logo.png" alt="logo" class="logo">
-</footer>
+  </footer>
   <!--footer fim-->
 </body>
 
@@ -98,13 +94,11 @@
     var emailVar = email_input.value;
     var senhaVar = senha_input.value;
     var confirmacaoSenhaVar = confirmacao_senha_input.value;
-    var empresaVar = listaEmpresas.value
     if (
       nomeVar == "" ||
       emailVar == "" ||
       senhaVar == "" ||
-      confirmacaoSenhaVar == "" ||
-      empresaVar == ""
+      confirmacaoSenhaVar == ""
     ) {
       cardErro.style.display = "block";
       mensagem_erro.innerHTML =
@@ -128,7 +122,6 @@
         nomeServer: nomeVar,
         emailServer: emailVar,
         senhaServer: senhaVar,
-        empresaServer: empresaVar
       }),
     })
       .then(function (resposta) {
@@ -156,22 +149,6 @@
       });
 
     return false;
-  }
-
-  function listar() {
-    fetch("/empresas/listar", {
-      method: "GET",
-    })
-      .then(function (resposta) {
-        resposta.json().then((empresas) => {
-          empresas.forEach((empresa) => {
-            listaEmpresas.innerHTML += `<option value='${empresa.id}'>${empresa.cnpj}</option>`;
-          });
-        });
-      })
-      .catch(function (resposta) {
-        console.log(`#ERRO: ${resposta}`);
-      });
   }
 
   function sumirMensagem() {

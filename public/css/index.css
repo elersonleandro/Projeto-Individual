@@ -174,3 +174,18 @@ footer{
     display: flex;
     flex-direction: row;
 }
+.saibamais{
+    display: flex;
+    background-color: aliceblue;
+    justify-content: center;
+}
+.caixinha{
+    display: flex;
+    width: 50vw;
+    font-family: monospace;
+    font-size: 20px;
+    background-color: #b58863;
+    margin-top: 10px;
+    border-radius: 10px;
+    padding: 10px;
+}
