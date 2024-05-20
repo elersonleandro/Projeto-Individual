@@ -24,10 +24,12 @@ header {
     color: black;
     height: 91px;
 }
-header h2{
+
+header h2 {
     display: flex;
     padding-left: 30vw;
 }
+
 .loginmy {
     width: 20%;
     display: flex;
@@ -43,6 +45,7 @@ header h2{
 .logo {
     width: 80px;
 }
+
 body {
     font-family: Roboto;
 }
@@ -117,9 +120,12 @@ footer {
     display: flex;
     align-items: center;
     border-top: 2px solid #404040;
-    justify-content: center;
-    background-color: #b58863;
-    height: 10vh;
+    justify-content: flex-start;
+    background-color: #6FA45E;
+    height: 25vh;
+}
+footer img{
+    margin-left: 3vw;
 }
 
 .containervoc {
@@ -154,26 +160,73 @@ button {
     align-items: center;
     width: 100px;
     height: 40px;
-
+    border: 0;
     background: #000000;
     border-radius: 8px;
     color: white;
 }
 
-.img_tab{
+.img_tab {
     display: flex;
     width: 30vw;
     padding-left: 7vw;
 }
-.porque{
+
+.porquediv {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.frame3 {
+    display: flex;
+    height: 80vh;
+    background-color: #312E2C;
+    flex-direction: row;
+    padding: 20px;
+}
+
+.frame3fi {
+    display: flex;
+    flex-direction: column;
+    width: 50vw;
+    height: 50vh;
+    padding: 10vh;
+}
+
+.frame3fi h2 {
+    padding-bottom: 4vh;
+    color: white;
+}
+
+.frame3fi p {
+    padding-bottom: 4vh;
+    color: #828282;
+}
+.frame4 {
     background-image: url(../img/back2.png);
     background-repeat: no-repeat;
     background-size: cover;
     height: 100vh;
+    display: flex;
 }
-.porque h1 {
+
+.frame4 h1 {
     font-size: 50px;
     color: black;
+    width: 40vw;
+    text-align: center;
 }
-
-
+.frame4 button{
+    margin-top: 5vh;
+}
+.git{
+    align-self: center;
+    width: 20px;
+}
+.fot{
+    display: flex;
+    flex-direction: column;
+    margin-left: 2vw;
+}

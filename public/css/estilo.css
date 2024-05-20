@@ -1,8 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+
 body {
   margin: 0;
   padding: 0;
-  font-family:'Inter';
+  font-family: 'Inter';
   background-color: black;
 }
 
@@ -154,7 +155,7 @@ body {
 
 .card {
   width: 50%;
-  background-color: #b58863;
+  background-color: #6FA45E;
   border-radius: 10px;
   display: flex;
   align-items: center;
@@ -239,7 +240,7 @@ body {
 
 /* FORMULARIO */
 
-.alerta_erro{
+.alerta_erro {
   display: flex;
   justify-content: flex-end;
 }
@@ -256,7 +257,7 @@ body {
   margin-right: 10%;
 }
 
-.card_erro #mensagem_erro{
+.card_erro #mensagem_erro {
   font-weight: 500;
   font-size: 20px;
 }
@@ -312,7 +313,7 @@ input {
 
 .simulador .container {
   flex-direction: column;
-  overflow: scroll; 
+  overflow: scroll;
   height: var(--tamanho-simulador);
 }
 
@@ -356,39 +357,84 @@ input {
 }
 
 @keyframes bell {
-  0%   {transform: rotate(25deg)}
-  25%  {transform: rotate(-25deg)}
-  50%  {transform: rotate(25deg)}
-  75%  {transform: rotate(-25deg)}
-  100% {transform: rotate(25deg)}
+  0% {
+    transform: rotate(25deg)
+  }
+
+  25% {
+    transform: rotate(-25deg)
+  }
+
+  50% {
+    transform: rotate(25deg)
+  }
+
+  75% {
+    transform: rotate(-25deg)
+  }
+
+  100% {
+    transform: rotate(25deg)
+  }
 }
-footer{
+
+footer {
   display: flex;
   align-items: center;
   border-top: 2px solid #404040;
-  justify-content: center;
-  background-color: #b58863;   
+  justify-content: flex-start;
+  background-color: #6FA45E;
+  height: 25vh;
 }
-.logo{
+footer img{
+  margin-left: 3vw;
+}
+
+.logo {
   width: 80px;
 }
+
 .loginmy {
   width: 20%;
   display: flex;
   justify-content: space-evenly;
   font-family: Roboto;
 }
-.loginmy a{
+
+.loginmy a {
   color: black;
   text-decoration: none;
 }
+
 header {
   display: flex;
   align-items: center;
   flex-direction: row;
   justify-content: space-between;
-  border-bottom: 2px solid #404040;
   box-shadow: 0 0 5px rgb(105, 0, 0, 0.322);
-  background-color: #b58863 ;
+  background-color: #6FA45E;
   color: black;
+  height: 91px;
+}
+button {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: 100px;
+  height: 40px;
+  cursor: pointer;
+  background: #000000;
+  border-radius: 8px;
+  color: white;
+  border: 0;
+}
+.git{
+  align-self: center;
+  width: 20px;
+}
+.fot{
+  display: flex;
+  flex-direction: column;
+  margin-left: 2vw;
 }
