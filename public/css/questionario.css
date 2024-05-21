@@ -93,6 +93,7 @@ header {
     height: 2.8em;
     padding-right: 3.3em;
     cursor: pointer;
+    float: right;
   }
   
   .cssbuttons-io-button .icon {

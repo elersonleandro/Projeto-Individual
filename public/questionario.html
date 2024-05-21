@@ -22,7 +22,7 @@
         </div>
     </header>
     <div class="frameQuest1">
-        <div class="container">
+        <div class="container" id="exp" style="display: block;">
             <h2>Qual seu nivel de experiência?</h2>
             <div>
                 <label for="" class="perguntas">
@@ -48,7 +48,7 @@
                     <p>Mestre</p>
                 </label>
             </div>
-            <button class="cssbuttons-io-button" style="align-self: self-end;">
+            <button class="cssbuttons-io-button" onclick="proximo()">
                 Avançar
                 <div class="icon">
                     <svg height="24" width="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -60,7 +60,7 @@
             </button>
 
         </div>
-        <div class="container" style="display: none;">
+        <div class="container" style="display: none;" id="freq">
             <h2>Com que frequência você joga Xadrez</h2>
             <div>
                 <label for="" class="perguntas">
@@ -86,7 +86,7 @@
                     <p>Raramente</p>
                 </label>
             </div>
-            <button class="cssbuttons-io-button" style="align-self: self-end;">
+            <button class="cssbuttons-io-button" onclick="proximo1()">
                 Avançar
                 <div class="icon">
                     <svg height="24" width="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -98,7 +98,7 @@
             </button>
 
         </div>
-        <div class="container" style="display: none;">
+        <div class="container" style="display: none;" id="form">
             <h2>Qual formato de jogo você prefere?</h2>
             <div>
                 <label for="" class="perguntas">
@@ -124,7 +124,7 @@
                     <p>Problemas</p>
                 </label>
             </div>
-            <button class="cssbuttons-io-button" style="align-self: self-end;">
+            <button class="cssbuttons-io-button" onclick="proximo2()">
                 Avançar
                 <div class="icon">
                     <svg height="24" width="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -136,7 +136,7 @@
             </button>
 
         </div>
-        <div class="container" style="display: none;">
+        <div class="container" style="display: none;" id="mot">
             <h2>Qual é a sua principal motivação para jogar xadrez?</h2>
             <div>
                 <label for="" class="perguntas">
@@ -162,7 +162,7 @@
                     <p>Apredizado</p>
                 </label>
             </div>
-            <button class="cssbuttons-io-button" style="align-self: self-end;">
+            <button class="cssbuttons-io-button" onclick="proximo3()">
                 Avançar
                 <div class="icon">
                     <svg height="24" width="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -178,3 +178,17 @@
 </body>
 
 </html>
+<script>
+    function proximo(){
+        exp.style.display = 'none'
+        freq.style.display = 'block'
+    }
+    function proximo1(){
+        freq.style.display = 'none'
+        form.style.display = 'block'
+    }
+    function proximo2(){
+        form.style.display = 'none'
+        mot.style.display = 'block'
+    }
+</script>
