@@ -174,9 +174,11 @@ button {
 
 .porquediv {
     display: flex;
-    align-items: center;
+    align-items: left;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
+    margin-top: 10vh;
+    margin-left: 5vw;
 }
 
 .frame3 {
@@ -216,7 +218,7 @@ button {
     font-size: 50px;
     color: black;
     width: 40vw;
-    text-align: center;
+    text-align: left;
 }
 .frame4 button{
     margin-top: 5vh;
@@ -224,6 +226,7 @@ button {
 .git{
     align-self: center;
     width: 20px;
+    margin-right: 7px;
 }
 .fot{
     display: flex;

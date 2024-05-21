@@ -1,0 +1,129 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+
+:root {
+--tamanho-header: 91px;
+--tamanho-back: calc(100vh - 91px);
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Inter';
+    background-color: black;
+}
+
+.logo {
+    width: 80px;
+}
+input[type=radio], input[type=checkbox]  {
+    border: 0px;
+    width: 25px;
+    height: 40px;
+    vertical-align: middle;
+}
+
+header {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    justify-content: space-between;
+    box-shadow: 0 0 5px rgb(105, 0, 0, 0.322);
+    background-color: #6FA45E;
+    color: black;
+    height: var(--tamanho-header);
+}
+
+.frameQuest1 {
+    display: flex;
+    background-image: url(../assets/imgs/back.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+    align-items: center;
+    justify-content: center;
+    height: var(--tamanho-back);
+}
+
+.container {
+    display: flex;
+    height: auto;
+    width: 40vw;
+    background-color: #6FA45E;
+    border-radius: 20px;
+    flex-direction: column;
+    align-items: self-start;
+    padding: 20px;
+}
+.container h2{
+    margin-left: 6vw;
+    margin-top: 7vh;
+    color: white;
+}
+.container input, p{
+    margin-left: 3vh;
+    font-size: 20;
+    color: white;
+}
+
+.loginmy {
+    width: 20%;
+    display: flex;
+    justify-content: space-evenly;
+}
+.perguntas{
+    display: flex;
+    flex-direction: row;
+    margin-top: 3vh;
+}
+.cssbuttons-io-button {
+    background: #000000;
+    color: white;
+    font-family: inherit;
+    padding: 0.35em;
+    padding-left: 1.2em;
+    font-size: 17px;
+    font-weight: 500;
+    border-radius: 0.9em;
+    border: none;
+    letter-spacing: 0.05em;
+    display: flex;
+    align-items: center;
+    box-shadow: inset 0 0 1.6em -0.6em #000000;
+    overflow: hidden;
+    position: relative;
+    height: 2.8em;
+    padding-right: 3.3em;
+    cursor: pointer;
+  }
+  
+  .cssbuttons-io-button .icon {
+    background: white;
+    margin-left: 1em;
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 2.2em;
+    width: 2.2em;
+    border-radius: 0.7em;
+    box-shadow: 0.1em 0.1em 0.6em 0.2em #000000;
+    right: 0.3em;
+    transition: all 0.3s;
+  }
+  
+  .cssbuttons-io-button:hover .icon {
+    width: calc(100% - 0.6em);
+  }
+  
+  .cssbuttons-io-button .icon svg {
+    width: 1.1em;
+    transition: transform 0.3s;
+    color: #7b52b9;
+  }
+  
+  .cssbuttons-io-button:hover .icon svg {
+    transform: translateX(0.1em);
+  }
+  
+  .cssbuttons-io-button:active .icon {
+    transform: scale(0.95);
+  }
