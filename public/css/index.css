@@ -57,7 +57,7 @@ h1 {
 .land_pai {
     display: flex;
     flex-direction: row;
-    background-image: url(../img/back.png);
+    background-image: url(../assets/imgs/back.png);
     background-repeat: no-repeat;
     background-size: cover;
     height: 100vh;
@@ -205,7 +205,7 @@ button {
     color: #828282;
 }
 .frame4 {
-    background-image: url(../img/back2.png);
+    background-image: url(../assets/imgs/back2.png);
     background-repeat: no-repeat;
     background-size: cover;
     height: 100vh;
