@@ -4,7 +4,8 @@ function cadastrarpref(req, res) {
     frequencia = req.body.frequenciaServer
     tipoPartida = req.body.tipoPartidaServer
     motivacao = req.body.motivacaoServer
-    quizModel.cadastrarpref(experiencia, frequencia, tipoPartida, motivacao)
+    idPreferencia = req.body.idPreferenciaServer
+    quizModel.cadastrarpref(idPreferencia, experiencia, frequencia, tipoPartida, motivacao)
         .then(
             function (resultado) {
                 res.json(resultado);

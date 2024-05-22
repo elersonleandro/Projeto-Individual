@@ -234,7 +234,19 @@
                 frequenciaServer: frequencia,
                 tipoPartidaServer: tipoPartida,
                 motivacaoServer: motivacao,
+                idPreferenciaServer: Number(sessionStorage.ID_USUARIO)
             })
         })
+        .then(function (resposta) {
+        console.log("resposta: ", resposta);
+
+        if (resposta.ok) {
+          setTimeout(() => {
+            window.location = "./chessboardjs-1.0.0/Problema.html";
+          }, "2000");
+        } else {
+          alert('Erro');
+        }
+      })
     }
 </script>
