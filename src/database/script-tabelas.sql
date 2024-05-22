@@ -20,9 +20,7 @@ CREATE TABLE usuario (
 	id INT PRIMARY KEY AUTO_INCREMENT,
 	nome VARCHAR(50),
 	email VARCHAR(50),
-	senha VARCHAR(50),
-	fk_empresa INT,
-	FOREIGN KEY (fk_empresa) REFERENCES empresa(id)
+	senha VARCHAR(50)
 );
 
 CREATE TABLE aviso (
@@ -36,9 +34,7 @@ CREATE TABLE aviso (
 create table aquario (
 /* em nossa regra de negócio, um aquario tem apenas um sensor */
 	id INT PRIMARY KEY AUTO_INCREMENT,
-	descricao VARCHAR(300),
-	fk_empresa INT,
-	FOREIGN KEY (fk_empresa) REFERENCES empresa(id)
+	descricao VARCHAR(300)
 );
 
 /* esta tabela deve estar de acordo com o que está em INSERT de sua API do arduino - dat-acqu-ino */
@@ -54,6 +50,14 @@ create table medida (
 	fk_aquario INT,
 	FOREIGN KEY (fk_aquario) REFERENCES aquario(id)
 );
+create table preferencias(
+	idPreferencia int primary key auto_increment,
+	experiencia varchar(45),
+	frequencia varchar(45),
+	tipoPartida varchar(45),
+	motivacao varchar(45)
+);
 
-insert into empresa (razao_social, cnpj) values ('Empresa 1', '00000000000000');
-insert into aquario (descricao, fk_empresa) values ('Aquário de Estrela-do-mar', 1);
+insert into aquario (descricao) values ('Aquário de Estrela-do-mar');
+
+select * from preferencias;

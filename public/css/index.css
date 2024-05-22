@@ -60,7 +60,7 @@ h1 {
     background-image: url(../assets/imgs/back.png);
     background-repeat: no-repeat;
     background-size: cover;
-    height: 100vh;
+    height: calc(100vh - 91px);
 }
 
 .land {
@@ -131,7 +131,7 @@ footer img{
 .containervoc {
     display: flex;
     background-color: #312E2C;
-    height: 100vh;
+    height: calc(100vh - 91px);
     justify-content: space-around;
     display: flex;
     flex-direction: row;
