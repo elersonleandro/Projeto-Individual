@@ -1,0 +1,218 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Inter';
+}
+
+body {
+    height: 100vh;
+}
+
+nav.menu-lateral {
+    width: 17vw;
+    height: 100vh;
+    background-color: #6FA45E;
+    padding: 40px 0 40px 1%;
+
+    position: fixed;
+    top: 0;
+    left: 0;
+}
+
+.btn-lateral {
+    width: 100%;
+    padding-left: 3%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    line-height: 20px;
+}
+
+.btn-lateral>i {
+    color: white;
+    font-size: 20px;
+    cursor: pointer;
+    margin-right: 4px;
+}
+
+ul {
+    height: 100%;
+    list-style-type: none;
+}
+
+ul li.item-menu a {
+    color: black;
+    text-decoration: none;
+    font-size: 18px;
+    padding: 20px 4%;
+    line-height: 30px;
+}
+
+ul li.item-menu a .txt-link {
+    margin-left: 20px;
+}
+
+ul li.item-menu:hover {
+    background-color: #629152;
+}
+
+ul li.item-menu {
+    transition: .5s;
+}
+
+ul li {
+    margin-bottom: 3vh;
+}
+
+h3 {
+    font-size: 15px;
+    margin-bottom: 3vh;
+}
+
+.menu-lateral h2 {
+    margin-bottom: 3vh;
+}
+
+.principal {
+    width: 83vw;
+    min-height: 100vh;
+    max-height: auto;
+    background-color: #EAEBEC;
+    padding-top: 2%;
+    margin-left: 17vw;
+}
+
+.postar {
+    width: 77vw;
+    height: 10vh;
+    margin-left: 20vw;
+    border: 1px solid #000000;
+}
+
+/* input{
+    box-sizing: border-box;
+    width: 75vw;
+    border-style: none;
+    background-color: #EAEBEC;
+    height: 40px;
+    outline: none;
+    margin-left: 2%;
+} */
+.postar button {
+    float: right;
+    margin-right: 2%;
+}
+
+.principal h2 {
+    margin-left: 4vw;
+    margin-bottom: 2%;
+}
+
+textarea:focus,
+input:focus,
+select:focus {
+    box-shadow: 0 0 0 0;
+    border: 0.5;
+    outline: 0;
+}
+
+textarea {
+    margin-left: 2%;
+    width: 75vw;
+    background-color: #EAEBEC;
+}
+
+.principal .avisos {
+    width: 100%;
+    color: rgb(216, 216, 216);
+}
+
+.principal .avisos .container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.principal .avisos .container .div-form {
+    width: 75vw;
+}
+
+.principal .avisos .container .div-form #form_postagem {
+    width: 75vw;
+}
+
+.principal .avisos .div-form label {
+    width: 75vw;
+}
+
+.principal .avisos .div-form textarea {
+    width: 75vw;
+    border-radius: 5px;
+}
+
+.principal .avisos .div-form button {
+    cursor: pointer;
+    border: 0;
+    border-radius: 5px;
+    font-weight: 600;
+    font-size: 15px;
+    padding: 10px 15px;
+    color: white;
+    background-color: black;
+    width: 70px;
+}
+
+.publicacao-btn-editar {
+    cursor: pointer;
+    border: 0;
+    border-radius: 5px;
+    font-weight: 600;
+    font-size: 14px;
+    padding: 5px 8px;
+    color: white;
+    background-color: black;
+    width: 70px;
+}
+.container{
+    width: 75vw;
+    margin-left: 4vw;
+}
+
+.publicacao {
+    display: flex;
+    flex-wrap: wrap;
+    align-content: stretch;
+    flex-direction: column;
+    justify-content: center;
+    align-items: stretch;
+    border: 0.5px solid black;
+    padding: 20px;
+    color: #000000;
+}
+
+.publicacao>*:not(:last-child) {
+    padding: 0 0 10px 0;
+}
+
+.div-results {
+    width: 75vw;
+}
+
+.div-results .feed-container {
+    background-color: #EAEBEC;
+    margin-bottom: 80px;
+}
+
+.div-buttons {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.div-buttons>* {
+    margin-left: 30px;
+}

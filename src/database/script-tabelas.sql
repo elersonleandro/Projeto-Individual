@@ -18,15 +18,24 @@ CREATE TABLE usuario (
 );
 
 create table preferencias(
-	idPreferencia int,
-	primary key(idPreferencia),
-	constraint UsuarioPref foreign key (idPreferencia) references usuario(id),
-	experiencia varchar(45),
-	frequencia varchar(45),
-	tipoPartida varchar(45),
-	motivacao varchar(45)
+idPreferencia int,
+primary key(idPreferencia),
+constraint UsuarioPref foreign key (idPreferencia) references usuario(id),
+experiencia varchar(45),
+frequencia varchar(45),
+tipoPartida varchar(45),
+motivacao varchar(45)
+);
+
+CREATE TABLE aviso (
+	id INT PRIMARY KEY AUTO_INCREMENT,
+	descricao VARCHAR(2000),
+	fk_usuario INT,
+	FOREIGN KEY (fk_usuario) REFERENCES usuario(id)
 );
 
 select * from preferencias;
 
 select * from usuario;
+
+select * from aviso;
