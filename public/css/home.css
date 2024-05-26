@@ -9,7 +9,8 @@
 }
 
 body {
-    height: 100vh;
+    max-width: 100vw;
+    background-color: #EAEBEC;
 }
 
 nav.menu-lateral {
@@ -84,7 +85,7 @@ h3 {
     max-height: auto;
     background-color: #EAEBEC;
     padding-top: 2%;
-    margin-left: 17vw;
+    padding: 2% 0 0 17vw;
 }
 
 .postar {
@@ -117,14 +118,13 @@ textarea:focus,
 input:focus,
 select:focus {
     box-shadow: 0 0 0 0;
-    border: 0.5;
+    border: 0;
     outline: 0;
 }
 
 textarea {
-    margin-left: 2%;
-    width: 75vw;
     background-color: #EAEBEC;
+    border-color: #EAEBEC;
 }
 
 .principal .avisos {
@@ -151,8 +151,7 @@ textarea {
 }
 
 .principal .avisos .div-form textarea {
-    width: 75vw;
-    border-radius: 5px;
+    width: 70vw;
 }
 
 .principal .avisos .div-form button {
@@ -190,7 +189,9 @@ textarea {
     flex-direction: column;
     justify-content: center;
     align-items: stretch;
-    border: 0.5px solid black;
+    border-bottom: 0.5px solid black;
+    border-right: 0.5px solid black;
+    border-left: 0.5px solid black;
     padding: 20px;
     color: #000000;
 }
@@ -215,4 +216,13 @@ textarea {
 
 .div-buttons>* {
     margin-left: 30px;
+}
+
+.publicaar{
+    display: flex;
+    border: 0.5px solid black;
+    padding: 5px;
+}
+.publicaar button{
+    align-self: end;
 }

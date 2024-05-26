@@ -186,10 +186,19 @@ body {
 .formulario input {
   border: 2px solid #404040;
   text-align: center;
-  border-radius: 10px;
+  border-radius: 5px;
   margin: 0;
+  background-color: #6FA45E;
+}
+.formulario select:focus {
+  box-shadow: 0 0 0 0;
+  outline: 0;
 }
 
+.formulario input:focus {
+  box-shadow: 0 0 0 0;
+  outline: 0;
+}
 .formulario select {
   border: 2px solid #32b9cd;
   background-color: white;

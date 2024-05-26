@@ -90,17 +90,22 @@
 
 </html>
 <script>
-    const timer = document.querySelector('.timer');
-    var nivel = 8;
-    var bestMoveElement = document.getElementById('bestMove'); // Armazenar referência ao elemento DOM
-
+    const timer = document.querySelector('.timer')
+    var nivel = 8
     function mudardepth() {
         nivel = Number(input_nivel.value);
     }
-
-
+    function criarTabuleiroAleatorio() {
+        var jogo = new Chess();
+        for (var i = 0; i < 120; i++) {
+            var movimentos = jogo.moves();
+            var movimentoAleatorio = movimentos[Math.floor(Math.random() * movimentos.length)];
+            jogo.move(movimentoAleatorio);
+        }
+        return jogo.fen();
+    }
     function movimentoEngine() {
-        var melhorJogada = bestMoveElement.innerText.split(' ')[2]; // Usar a referência armazenada
+        var melhorJogada = document.getElementById('bestMove').innerText.split(' ')[2];
         var inicio = melhorJogada.slice(0, 2);
         var fim = melhorJogada.slice(2, 4);
         jogo.move({
@@ -112,23 +117,27 @@
         board.position(tabuleiro);
         engine.postMessage('position fen ' + tabuleiro);
         engine.postMessage(`go depth ${nivel}`);
+        var melhorJogada = document.getElementById('bestMove').innerText.split(' ')[2];
+
     }
 
+
+    var tabuleiro = criarTabuleiroAleatorio();
     var engine = new Worker('js/stockfish.js');
 
     engine.postMessage('uci');
-    engine.postMessage('position fen rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1');
+    engine.postMessage('position fen ' + tabuleiro);
 
-    engine.postMessage(`go depth 4`);
+    engine.postMessage(`go depth ${nivel}`);
 
     engine.onmessage = function (event) {
         var melhorJogada = event.data.split(' ')[1];
-        bestMoveElement.innerText = 'Melhor jogada: ' + melhorJogada;
+        document.getElementById('bestMove').innerText = 'Melhor jogada: ' + melhorJogada;
     };
 
-    var jogo = new Chess(); // Inicializar o jogo com o tabuleiro padrão
+    var jogo = new Chess(tabuleiro); // Inicializar o jogo com a posição aleatória
     var config = {
-        position: 'start', // Definindo a posição inicial como a posição padrão de um jogo de xadrez
+        position: tabuleiro,
         draggable: true,
         onDrop: function (source, target) {
             var movimento = jogo.move({
@@ -142,46 +151,34 @@
 
                 engine.postMessage('position fen ' + tabuleiro);
                 engine.postMessage('go depth 8');
-                var melhorJogada = bestMoveElement.innerText.split(' ')[2]; // Usar a referência armazenada
-                lista_movimentos.push(source + target);
-                jogadas_anteriores.innerHTML = `Suas jogadas ${lista_movimentos}`;
-                if (jogo.game_over()) {
-                    alert('Xeque-mate');
-                    stopTimer();
+                var melhorJogada = document.getElementById('bestMove').innerText.split(' ')[2];
+                lista_movimentos.push(source + target)
+                jogadas_anteriores.innerHTML = `Suas jogadas ${lista_movimentos}`
+
+                if (source + target === melhorJogada) {
+                    message.innerHTML = 'Parabéns! Você fez a jogada correta!';
+                    setTimeout(() => {
+                        movimentoEngine();
+                    }, "1000");
                 } else {
-                    if (source + target === melhorJogada) {
-                        message.innerHTML = 'Parabéns! Você fez a jogada correta!';
-                        setTimeout(() => {
-                            movimentoEngine();
-                        }, 1000); // Remova as aspas em torno do número para corrigir o atraso
-                    } else {
-                        message.innerHTML = 'Errou';
-                        setTimeout(() => {
-                            movimentoEngine();
-                        }, 1000); // Remova as aspas em torno do número para corrigir o atraso
-                    }
+                    message.innerHTML = 'Errou';
+                    setTimeout(() => {
+                        movimentoEngine();
+                    }, "1000")
                 }
             } else {
                 return 'snapback'; // Retorna a peça para a posição original
             }
         }
     };
-
-    var lista_movimentos = [];
+    var lista_movimentos = []
     var board = Chessboard('myBoard', config);
-    let intervalId;
-    let contadorValue;
     const startTimer = () => {
-        intervalId = setInterval(() => {
+        this.loop = setInterval(() => {
             const currentTime = +timer.innerHTML;
             timer.innerHTML = currentTime + 1;
-        }, 1000);
-    };
-    startTimer();
-    const stopTimer = () => {
-        clearInterval(intervalId);
-        contadorValue = +timer.innerHTML
-        alert(contadorValue)
+        }, 1000
+        );
     }
-
+    startTimer();
 </script>
