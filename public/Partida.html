@@ -93,6 +93,31 @@
     const timer = document.querySelector('.timer');
     var nivel = 8;
     var bestMoveElement = document.getElementById('bestMove'); // Armazenar referência ao elemento DOM
+    function finalizar() {
+        var tempo = Number(contadorValue)
+        fetch("/quiz/inserirproblema", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                tempoServer: tempo,
+                idUsuarioServer: Number(sessionStorage.ID_USUARIO),
+                fkjogoServer: 2
+            })
+        })
+            .then(function (resposta) {
+                console.log("resposta: ", resposta);
+
+                if (resposta.ok) {
+                    setTimeout(() => {
+                        window.location = "Partida.html";
+                    }, "2000");
+                } else {
+                    alert('Erro');
+                }
+            })
+    }
 
     function mudardepth() {
         nivel = Number(input_nivel.value);
@@ -145,10 +170,28 @@
                 var melhorJogada = bestMoveElement.innerText.split(' ')[2]; // Usar a referência armazenada
                 lista_movimentos.push(source + target);
                 jogadas_anteriores.innerHTML = `Suas jogadas ${lista_movimentos}`;
-                if (jogo.game_over()) {
-                    alert('Xeque-mate');
-                    stopTimer();
-                } else {
+                if (jogo.in_checkmate()) {
+                    stopTimer()
+                    var vencedor = jogo.turn() === 'w' ? 'Preto' : 'Branco';
+                    alert('Fim de jogo! Xeque-mate. Vencedor: ' + vencedor);
+                    if (vencedor == 'Branco') {
+                        finalizar()
+                        calcularAcertos()
+                    }
+                    else {
+                        calcularAcertos()
+                    }
+                    return true;
+                } else if (jogo.in_draw()) {
+                    stopTimer()
+                    alert('Fim de jogo! Empate.');
+                    return true;
+                } else if (jogo.in_stalemate()) {
+                    stopTimer()
+                    alert('Fim de jogo! Afogamento.');
+                    return true;
+                }
+                else {
                     if (source + target === melhorJogada) {
                         message.innerHTML = 'Parabéns! Você fez a jogada correta!';
                         setTimeout(() => {

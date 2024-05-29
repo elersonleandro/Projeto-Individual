@@ -21,6 +21,27 @@ function cadastrarpref(req, res) {
             }
         );
 }
+function inserirproblema(req, res){
+    fkjogo = req.body.fkjogoServer
+    tempo = req.body.tempoServer
+    idUsuario = req.body.idUsuarioServer
+    quizModel.inserirproblema(fkjogo, idUsuario, tempo)
+        .then(
+            function(resultado){
+                res.json(resultado);
+            }
+        ) .catch(
+            function (erro){
+                console.log(erro)
+                console.log(
+                    "\nHouve um erro ao inserir no bacno de dados! Erro: ",
+                    erro.sqlMessage
+                );
+                res.status(500).json(erro.sqlMessage)
+            }
+        );
+}
 module.exports = {
-    cadastrarpref
+    cadastrarpref,
+    inserirproblema
 }

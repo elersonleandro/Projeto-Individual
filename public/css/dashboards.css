@@ -6,6 +6,7 @@ body {
   margin: 0;
   padding: 0;
   font-family: 'Barlow', 'Segoe UI', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #EAEBEC;
 }
 
 .label-captura {
@@ -16,7 +17,7 @@ body {
 .dash-right .avisos {
   width: 100%;
   color: rgb(216, 216, 216);
-  font-family: 'Barlow', 'Segoe UI', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: 'Inter';
 }
 
 .dash-right .avisos .container {
@@ -120,7 +121,7 @@ body {
   position: relative;
   top: 0;
   left: 20%;
-  background-color: #161618;
+  background-color: #EAEBEC;
   height: 100vh;
   overflow: auto;
 }
@@ -425,4 +426,9 @@ canvas {
   padding: 10px 15px;
   margin-bottom: 100px;
   cursor: pointer;
+}
+
+.graficos{
+  width: 25vw;
+  height: 25vw;
 }

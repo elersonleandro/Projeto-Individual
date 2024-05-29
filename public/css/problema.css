@@ -1,0 +1,29 @@
+.conteiner{
+    display: flex;
+    padding: 0 0 0 17vw;
+    flex-direction: row;
+    justify-content: space-evenly;
+    padding-top: 10vh;
+    width: 83vw;
+}
+.tab-info{
+    width: 41vw;
+    margin-left: 6vw;
+    padding-right: 20px;
+}
+.tab-info .tab{
+    width: 30vw;
+}
+.explicacao{
+    border: 0.5px solid black;
+    height: 50vh;
+    width: 41vw;
+    padding: 2%;
+}
+.explicacao button{
+    background-color: #EAEBEC;
+}
+.explicacao input{
+    background-color: #EAEBEC;
+    border: 0;
+}
