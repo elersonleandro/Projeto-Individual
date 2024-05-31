@@ -120,7 +120,7 @@ body {
   width: 80%;
   position: relative;
   top: 0;
-  left: 20%;
+  left: 19vw;
   background-color: #EAEBEC;
   height: 100vh;
   overflow: auto;
@@ -429,6 +429,34 @@ canvas {
 }
 
 .graficos{
-  width: 25vw;
-  height: 25vw;
+  width: 30vw;
+  height: 30vw;
+}
+table {
+  width: 30vw;
+  border-collapse: collapse;
+  font-size: 15px;
+  text-align: left;
+  height: 40vh;
+}
+th, td {
+  border-bottom: 1px solid #ddd;
+}
+.nome{
+  float: left;
+}
+.tempo{
+  float: right;
+}
+.ranking{
+  margin-top: 2%;
+  margin-bottom: 2%;
+  display: flex;
+  flex-direction: row;
+}
+.linhagrafico{
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 2%;
+  justify-content: space-evenly;
 }

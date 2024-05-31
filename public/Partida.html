@@ -8,16 +8,18 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="js/chessboard-1.0.0.js"></script>
     <link rel="stylesheet" href="css/chessboard-1.0.0.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/chess.js/0.10.2/chess.js"
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/chess.js/0.10.2/chess.js"
         integrity="sha384-s3XgLpvmHyscVpijnseAmye819Ee3yaGa8NxstkJVyA6nuDFjt59u1QvuEl/mecz" crossorigin="anonymous">
-        </script>
+        </script> -->
+    <script src="js/sessao.js"></script>
+    <script src="js/chess.js"></script>
     <script src="js/stockfish.js"></script>
-    <link rel="stylesheet" href="../css/home.css">
+    <link rel="stylesheet" href="css/home.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link rel="stylesheet" href="css/problema.css">
 </head>
 
-<body>
+<body onload="validarSessao()">
     <nav class="menu-lateral">
 
         <h2>ChesStudent</h2>
@@ -30,23 +32,23 @@
                 </a>
             </li>
             <li class="item-menu">
-                <a href="#">
+                <a href="dashboard/dashboard.html">
                     <span class="icon"><i class="bi bi-bar-chart"></i></span>
                     <span class="txt-link">Dashboard</span>
                 </a>
             </li>
             <li class="item-menu">
-                <a href="chessboardjs-1.0.0/Problema.html">
+                <a href="ProblemaFinal.html">
                     <span class="icon"><i class="bi bi-puzzle"></i>
                     </span>
                     <span class="txt-link">Resolva problemas</span>
                 </a>
             </li>
             <li class="item-menu">
-                <a href="#">
+                <a href="Partida.html">
                     <span class="icon"><i class="bi bi-broadcast"></i>
                     </span>
-                    <span class="txt-link">Desenvolvedor</span>
+                    <span class="txt-link">Jogar</span>
                 </a>
             </li>
             <h3>Aprender</h3>
@@ -91,7 +93,9 @@
 </html>
 <script>
     const timer = document.querySelector('.timer');
-    var nivel = 8;
+    var nivel = 1;
+    var niveldica = 10
+    var porcentagemAcerto = 0
     var bestMoveElement = document.getElementById('bestMove'); // Armazenar referência ao elemento DOM
     function finalizar() {
         var tempo = Number(contadorValue)
@@ -103,7 +107,8 @@
             body: JSON.stringify({
                 tempoServer: tempo,
                 idUsuarioServer: Number(sessionStorage.ID_USUARIO),
-                fkjogoServer: 2
+                fkjogoServer: 2,
+                porcentAcertoServer: porcentagemAcerto.toFixed(1)
             })
         })
             .then(function (resposta) {
@@ -120,7 +125,7 @@
     }
 
     function mudardepth() {
-        nivel = Number(input_nivel.value);
+        niveldica = Number(input_nivel.value);
     }
 
 
@@ -136,7 +141,7 @@
         var tabuleiro = jogo.fen();
         board.position(tabuleiro);
         engine.postMessage('position fen ' + tabuleiro);
-        engine.postMessage(`go depth ${nivel}`);
+        engine.postMessage(`go depth ${niveldica}`);
     }
 
     var engine = new Worker('js/stockfish.js');
@@ -144,7 +149,7 @@
     engine.postMessage('uci');
     engine.postMessage('position fen rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1');
 
-    engine.postMessage(`go depth 4`);
+    engine.postMessage(`go movetime ${niveldica}`);
 
     engine.onmessage = function (event) {
         var melhorJogada = event.data.split(' ')[1];
@@ -166,17 +171,17 @@
                 board.position(tabuleiro);
 
                 engine.postMessage('position fen ' + tabuleiro);
-                engine.postMessage('go depth 8');
+                engine.postMessage(`go movetime ${nivel}`);
                 var melhorJogada = bestMoveElement.innerText.split(' ')[2]; // Usar a referência armazenada
+                lista_melhores.push(melhorJogada)
                 lista_movimentos.push(source + target);
-                jogadas_anteriores.innerHTML = `Suas jogadas ${lista_movimentos}`;
                 if (jogo.in_checkmate()) {
                     stopTimer()
                     var vencedor = jogo.turn() === 'w' ? 'Preto' : 'Branco';
                     alert('Fim de jogo! Xeque-mate. Vencedor: ' + vencedor);
                     if (vencedor == 'Branco') {
-                        finalizar()
                         calcularAcertos()
+                        finalizar()
                     }
                     else {
                         calcularAcertos()
@@ -209,7 +214,22 @@
             }
         }
     };
+    function calcularAcertos() {
+        var qtdmovimentos = lista_movimentos.length
+        var acertos = 0
+        var erros = 0
+        for (var index = 0; index < qtdmovimentos; index++) {
+            if (lista_movimentos[index] == lista_melhores[index]) {
+                acertos++
+            }
+            else {
+                erros++
+            }
+        }
+        porcentagemAcerto = acertos / qtdmovimentos * 100
+    }
 
+    var lista_melhores = []
     var lista_movimentos = [];
     var board = Chessboard('myBoard', config);
     let intervalId;

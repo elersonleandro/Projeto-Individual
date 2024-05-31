@@ -25,7 +25,8 @@ function inserirproblema(req, res){
     fkjogo = req.body.fkjogoServer
     tempo = req.body.tempoServer
     idUsuario = req.body.idUsuarioServer
-    quizModel.inserirproblema(fkjogo, idUsuario, tempo)
+    porcentAcerto = req.body.porcentAcertoServer
+    quizModel.inserirproblema(fkjogo, idUsuario, tempo, porcentAcerto)
         .then(
             function(resultado){
                 res.json(resultado);

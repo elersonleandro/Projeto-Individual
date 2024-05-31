@@ -11,6 +11,7 @@
     <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/chess.js/0.10.2/chess.js"
         integrity="sha384-s3XgLpvmHyscVpijnseAmye819Ee3yaGa8NxstkJVyA6nuDFjt59u1QvuEl/mecz" crossorigin="anonymous">
         </script> -->
+    <script src="js/sessao.js"></script>
     <script src="js/chess.js"></script>
     <script src="js/stockfish.js"></script>
     <link rel="stylesheet" href="../css/home.css">
@@ -18,7 +19,7 @@
     <link rel="stylesheet" href="css/problema.css">
 </head>
 
-<body>
+<body onload="validarSessao()">
     <nav class="menu-lateral">
 
         <h2>ChesStudent</h2>
@@ -31,7 +32,7 @@
                 </a>
             </li>
             <li class="item-menu">
-                <a href="#">
+                <a href="dashboard/dashboard.html">
                     <span class="icon"><i class="bi bi-bar-chart"></i></span>
                     <span class="txt-link">Dashboard</span>
                 </a>
@@ -98,6 +99,7 @@
     const timer = document.querySelector('.timer');
     var nivel = 8;
     var bestMoveElement = document.getElementById('bestMove'); // Armazenar referência ao elemento DOM
+    var porcentagemAcerto = 0
     function finalizar() {
         var tempo = Number(contadorValue)
         fetch("/quiz/inserirproblema", {
@@ -108,7 +110,8 @@
             body: JSON.stringify({
                 tempoServer: tempo,
                 idUsuarioServer: Number(sessionStorage.ID_USUARIO),
-                fkjogoServer: 1
+                fkjogoServer: 1,
+                porcentAcertoServer: porcentagemAcerto.toFixed(1)
             })
         })
             .then(function (resposta) {
@@ -181,7 +184,7 @@
     engine.postMessage('uci');
     engine.postMessage('position fen ' + tabuleiro);
 
-    engine.postMessage(`go depth ${nivel}`);
+    engine.postMessage(`go depth 4`);
 
     engine.onmessage = function (event) {
         var melhorJogada = event.data.split(' ')[1];
@@ -203,7 +206,7 @@
                 board.position(tabuleiro);
 
                 engine.postMessage('position fen ' + tabuleiro);
-                engine.postMessage('go depth 8');
+                engine.postMessage('go movetime 1');
                 var melhorJogada = bestMoveElement.innerText.split(' ')[2]; // Usar a referência armazenada
                 lista_movimentos.push(source + target);
                 lista_melhores.push(melhorJogada)
@@ -215,8 +218,8 @@
                     var vencedor = jogo.turn() === 'w' ? 'Preto' : 'Branco';
                     alert('Fim de jogo! Xeque-mate. Vencedor: ' + vencedor);
                     if (vencedor == 'Branco') {
-                        finalizar()
                         calcularAcertos()
+                        finalizar()
                     }
                     else {
                         calcularAcertos()
@@ -270,7 +273,7 @@
                 erros++
             }
         }
-        var porcentagemAcerto = acertos / qtdmovimentos * 100
+        porcentagemAcerto = acertos / qtdmovimentos * 100
         alert(`${porcentagemAcerto} das suas jogadas foram iguais as do stockfish, Você fez tudo isso em ${contadorValue} segundos`)
     }
 

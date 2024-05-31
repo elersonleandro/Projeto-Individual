@@ -12,9 +12,9 @@ function cadastrarpref(idPreferencia, experiencia, frequencia, tipoPartida, moti
     return database.executar(instrucaoSql);
 }
 
-function inserirproblema(fkjogo, idUsuario, tempo){
-    console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function cadastrar():",fkjogo, idUsuario, tempo);
-    var instrucaoSql = `INSERT INTO TentativaJogo (fkjogo, fkusuario, tempo) VALUES (${fkjogo}, ${idUsuario}, ${tempo})`;
+function inserirproblema(fkjogo, idUsuario, tempo, porcentAcerto){
+    console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function cadastrar():",fkjogo, idUsuario, tempo, porcentAcerto);
+    var instrucaoSql = `INSERT INTO TentativaJogo (fkjogo, fkusuario, tempo, porcentAcertos) VALUES (${fkjogo}, ${idUsuario}, ${tempo}, ${porcentAcerto})`;
     console.log('Executando a instrução SQL: \n' + instrucaoSql);
     return database.executar(instrucaoSql);
 }
