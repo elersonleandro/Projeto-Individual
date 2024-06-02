@@ -7,6 +7,7 @@ body {
   padding: 0;
   font-family: 'Barlow', 'Segoe UI', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   background-color: #EAEBEC;
+  overflow-x: hidden;
 }
 
 .label-captura {
@@ -117,13 +118,10 @@ body {
 }
 
 .dash {
-  width: 80%;
-  position: relative;
-  top: 0;
-  left: 19vw;
-  background-color: #EAEBEC;
+  width: 83vw;
   height: 100vh;
-  overflow: auto;
+  margin-left: 17vw;
+  background-color: #EAEBEC;
 }
 
 .area-parametros-alerta {
@@ -321,11 +319,6 @@ body {
   display: block;
 }
 
-canvas {
-  width: 100% !important;
-  height: 100% !important;
-}
-
 /* PAGINA DOS GRÁFICOS 2023 */
 
 .janela {
@@ -360,7 +353,6 @@ canvas {
   background-color: #161618;
   position: relative;
   top: 0;
-  left: 25%;
   height: 100vh;
   overflow: auto;
 }
@@ -428,35 +420,49 @@ canvas {
   cursor: pointer;
 }
 
-.graficos{
-  width: 30vw;
-  height: 30vw;
-}
 table {
-  width: 30vw;
-  border-collapse: collapse;
-  font-size: 15px;
-  text-align: left;
-  height: 40vh;
+  width: 25vw;
+  border: 1px solid black;
+  padding: 7px;
+  margin: 0;
 }
-th, td {
-  border-bottom: 1px solid #ddd;
+
+th {
+  height: 20px;
+  text-align: left;
+}
+td {
+  height: 20px;
+  text-align: right;
 }
 .nome{
-  float: left;
+  text-align: left;
 }
 .tempo{
-  float: right;
+  text-align: right;
+  padding-left: 0;
 }
 .ranking{
   margin-top: 2%;
   margin-bottom: 2%;
   display: flex;
   flex-direction: row;
+  justify-content: space-evenly;
 }
-.linhagrafico{
+.linhagrafico {
   display: flex;
   flex-direction: row;
   margin-bottom: 2%;
   justify-content: space-evenly;
 }
+
+.graficos {
+  margin-top: 2%;
+  width: 20vw;
+  height: 20vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+

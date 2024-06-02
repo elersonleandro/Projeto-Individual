@@ -87,31 +87,110 @@
         <div class="dash">
             <div class="ranking">
                 <table id="rankingTable">
-                    <thead>
+                    <thead class="thead">
                         <tr>
-                            <h2>Ranking Problemas</h2>
                             <th class="nome">Nome</th>
                             <th class="tempo">Tempo</th>
                         </tr>
                     </thead>
                     <tbody>
+                        <tr>
+                            <td class="nome"></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td class="nome"></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td class="nome"></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td class="nome"></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td class="nome"></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td class="nome"></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td class="nome"></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td class="nome"></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td class="nome"></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td class="nome"></td>
+                            <td></td>
+                        </tr>
                     </tbody>
                 </table>
                 <table id="rankingTablePar">
                     <thead>
                         <tr>
-                            <h2>Ranking Partidas</h2>
                             <th class="nome">Nome</th>
                             <th class="tempo">Tempo</th>
                         </tr>
                     </thead>
                     <tbody>
+                        <tr>
+                            <td class="nome"></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td class="nome"></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td class="nome"></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td class="nome"></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td class="nome"></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td class="nome"></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td class="nome"></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td class="nome"></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td class="nome"></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td class="nome"></td>
+                            <td></td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
             <!-- <div id="b_usuario"></div> -->
+            <hr>
             <div class="linhagrafico">
-                <div id="graficos" class="graficos">
+                <div class="graficos">
                     <p>Experiencia</p>
                     <canvas id="myChartCanvas"></canvas>
                 </div>
@@ -119,10 +198,8 @@
                     <p>Frequencia</p>
                     <canvas id="myChartCanvasFreq"></canvas>
                 </div>
-            </div>
-            <div class="linhagrafico">
                 <div class="graficos">
-                    <p>Tipo de partidas</p>
+                <p>Tipo de partidas</p>
                     <canvas id="myChartCanvasTipo"></canvas>
                 </div>
                 <div class="graficos">
@@ -130,7 +207,7 @@
                     <canvas id="myChartCanvasMotivo"></canvas>
                 </div>
             </div>
-        </div>
+            <hr>
         </div>
 
 
@@ -164,17 +241,19 @@
     }
 
     function plotarRankingProblema(resposta) {
+        const rows = document.querySelectorAll("#rankingTable tbody tr");
 
-        const tbody = document.querySelector("#rankingTable tbody");
-        for (let i = 0; i < resposta.length; i++) {
-            const row = document.createElement("tr");
-            const nomeCell = document.createElement("td");
-            const tempoCell = document.createElement("td");
-            nomeCell.textContent = resposta[i].nome;
-            tempoCell.textContent = resposta[i].tempo;
-            row.appendChild(nomeCell);
-            row.appendChild(tempoCell);
-            tbody.appendChild(row);
+        for (let i = 0; i < rows.length; i++) {
+            const nomeCell = rows[i].cells[0];
+            const tempoCell = rows[i].cells[1];
+
+            if (i < resposta.length) {
+                nomeCell.textContent = resposta[i].nome;
+                tempoCell.textContent = resposta[i].tempo;
+            } else {
+                nomeCell.textContent = "";  // Limpa a célula se não houver dados
+                tempoCell.textContent = "";  // Limpa a célula se não houver dados
+            }
         }
     }
     function obterRankingPartida() {
@@ -192,16 +271,19 @@
     }
 
     function plotarRankingPartida(resposta) {
-        const tbody = document.querySelector("#rankingTablePar tbody");
-        for (let i = 0; i < resposta.length; i++) {
-            const row = document.createElement("tr");
-            const nomeCell = document.createElement("td");
-            const tempoCell = document.createElement("td");
-            nomeCell.textContent = resposta[i].nome;
-            tempoCell.textContent = resposta[i].tempo;
-            row.appendChild(nomeCell);
-            row.appendChild(tempoCell);
-            tbody.appendChild(row);
+        const rows = document.querySelectorAll("#rankingTablePar tbody tr");
+
+        for (let i = 0; i < rows.length; i++) {
+            const nomeCell = rows[i].cells[0];
+            const tempoCell = rows[i].cells[1];
+
+            if (i < resposta.length) {
+                nomeCell.textContent = resposta[i].nome;
+                tempoCell.textContent = resposta[i].tempo;
+            } else {
+                nomeCell.textContent = "";  // Limpa a célula se não houver dados
+                tempoCell.textContent = "";  // Limpa a célula se não houver dados
+            }
         }
     }
 
