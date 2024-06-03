@@ -2,6 +2,9 @@ var express = require("express");
 var router = express.Router();
 
 var medidaController = require("../controllers/medidaController");
+router.post('/buscar/usuario', function(req,res){
+    medidaController.obterDadosUsuario(req, res);
+});
 
 router.get('/buscar/frequencia', function(req,res){
     medidaController.buscarFrequencia(req, res);

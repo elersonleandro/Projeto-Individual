@@ -76,17 +76,19 @@
     <div class="conteiner">
         <div>
             <div id="myBoard" style="width: 400px"></div>
-            <div id="bestMove"></div>
-            <div id="message"></div>
-            <div id="avaliar"></div>
-            <span>Tempo: <span class="timer">00</span></span>
-
+            <span>Tempo: <span class="timer">00</span></span><br>
+            <button onclick="acompanhar()">Acompanhar análises</button>
+            
         </div>
         <div style="width: 30vw;">
+            <div id="analise" style="display: none;">
             <h2>Vamos lá</h2>
-            <p>O sistema irá fazer 100 jogadas aleatórias, Depois disso você jogará contra o Stockfish, Irei te
-                acompanhar, você também pode selecionar o nível do Stockfish de 0 a 15</p>
-            <input type="number" id="input_nivel"><button onclick="mudardepth()">Enviar</button>
+            <p></p>
+                <input type="number" id="input_nivel"><button onclick="mudardepth()">Enviar</button>
+                    <div id="bestMove"></div>
+                    <div id="message"></div>
+                    <div id="avaliar"></div>
+                </div>
         </div>
     </div>
 </body>
@@ -98,7 +100,9 @@
     var niveldica = 10;
     var porcentagemAcerto = 0;
     var bestMoveElement = document.getElementById('bestMove'); // Armazenar referência ao elemento DOM
-
+    function acompanhar(){
+        analise.style.display = 'block'
+    }
     function finalizar() {
         var tempo = Number(contadorValue);
         fetch("/quiz/inserirproblema", {
@@ -150,27 +154,28 @@
     }
 
     // Manipulador de mensagens do Stockfish
-    engine.onmessage = function (event) {
-        var message = event.data;
+    engine.onmessage = function(event) {
+    var message = event.data;
 
-        if (message.startsWith('info')) {
-            var parts = message.split(' ');
-            for (var i = 0; i < parts.length; i++) {
-                if (parts[i] === 'cp') { // cp = centipawns, indicative of positional evaluation
-                    var eval = parts[i + 1];
-                    mostrarAvaliacao(eval);
-                    break;
-                } else if (parts[i] === 'mate') { // mate = checkmate evaluation
-                    var mate = parts[i + 1];
-                    mostrarAvaliacao('Mate in ' + mate);
-                    break;
-                }
+    if (message.startsWith('info')) {
+        var parts = message.split(' ');
+        for (var i = 0; i < parts.length; i++) {
+            if (parts[i] === 'cp') { // cp = centipawns, indicative of positional evaluation
+                var eval = parseInt(parts[i + 1], 10);
+                var evalInPawns = eval / 100;
+                mostrarAvaliacao(evalInPawns.toFixed(2)); // Convert to 2 decimal places
+                break;
+            } else if (parts[i] === 'mate') { // mate = checkmate evaluation
+                var mate = parts[i + 1];
+                mostrarAvaliacao('Mate in ' + mate);
+                break;
             }
-        } else if (message.startsWith('bestmove')) {
-            var melhorJogada = message.split(' ')[1];
-            bestMoveElement.innerText = 'Melhor jogada: ' + melhorJogada;
         }
-    };
+    } else if (message.startsWith('bestmove')) {
+        var melhorJogada = message.split(' ')[1];
+        bestMoveElement.innerText = 'Melhor jogada: ' + melhorJogada;
+    }
+};
 
     function mostrarAvaliacao(evaluation) {
         var messageElement = document.getElementById('avaliar');

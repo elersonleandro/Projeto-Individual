@@ -85,6 +85,14 @@
             </ul>
         </nav>
         <div class="dash">
+            <div class="usuario">
+                <div id="usuario"></div>
+            </div>
+            <hr>
+            <div class="ranking">
+                <p>Ranking Problemas</p>
+                <p>Ranking Partidas</p>
+            </div>
             <div class="ranking">
                 <table id="rankingTable">
                     <thead class="thead">
@@ -199,7 +207,7 @@
                     <canvas id="myChartCanvasFreq"></canvas>
                 </div>
                 <div class="graficos">
-                <p>Tipo de partidas</p>
+                    <p>Tipo de partidas</p>
                     <canvas id="myChartCanvasTipo"></canvas>
                 </div>
                 <div class="graficos">
@@ -219,12 +227,89 @@
     // b_usuario.innerHTML = sessionStorage.NOME_USUARIO;
 
     let proximaAtualizacao;
+    obterDadosUsuario()
     obterExperiencia()
     obterFrequencia()
     obterTipo()
     obterMotivo()
     obterRankingProblema()
     obterRankingPartida()
+
+    var nome
+    var tentativasProblemas
+    var tentativasPartidas
+    var acertosProblemas
+    var acertosPartidas
+    var menorTempoProblema
+    var menorTempoPartida
+    var idPreferencia
+    var experiencia
+    var frequencia
+    var tipoPartida
+    var motivacao
+
+    function obterDadosUsuario() {
+        fetch("/medidas/buscar/usuario", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                idusuarioServer: sessionStorage.ID_USUARIO
+            })
+        }).then(function (resposta) {
+            console.log("ESTOU NO THEN DO OBTERDADOUSUARIO()!")
+            if (resposta.ok) {
+                resposta.json().then(json => {
+                    console.log(json);
+                    console.log(JSON.stringify(json))
+                    nome = json.nome
+                    tentativasProblemas = json.tentativasProblemas
+                    tentativasPartidas = json.tentativasPartidas
+                    acertosProblemas = json.acertosProblemas
+                    acertosPartidas = json.acertosPartidas
+                    menorTempoProblema = json.menorTempoProblemas
+                    menorTempoPartida = json.menorTempoPartida
+                    idPreferencia = json.idPreferencia
+                    experiencia = json.experiencia
+                    frequencia = json.frequencia
+                    tipoPartida = json.tipoPartida
+                    motivacao = json.motivacao
+                });
+                console.log(resposta)
+                atualizarHTML()
+            }
+            else {
+                console.log('erro ao buscar dados')
+            }
+        }).catch(function (erro) {
+            console.error('Erro:', erro);
+        });
+
+    }
+    function atualizarHTML() {
+            const dadosUsuarioDiv = document.getElementById("usuario");
+            const html = `
+                <div class="user-data">
+                    <h2>Dados do Usuário</h2>
+                    <p><strong>ID:</strong> ${idPreferencia}</p>
+                    <p><strong>Nome:</strong> ${nome}</p>
+                    <p><strong>Xeque-Mate Problemas:</strong> ${tentativasProblemas}</p>
+                    <p><strong>Xeque-Mate Partidas:</strong> ${tentativasPartidas}</p>
+                    <p><strong>Acertos Problemas:</strong> ${acertosProblemas}%</p>
+                    <p><strong>Acertos Partidas:</strong> ${acertosPartidas}%</p>
+                    <p><strong>Menor Tempo Problemas:</strong> ${menorTempoProblema} segundos</p>
+                    <p><strong>Menor Tempo Partida:</strong> ${menorTempoPartida} segundos</p>
+                    <p><strong>Experiência:</strong> ${experiencia}</p>
+                    <p><strong>Frequência:</strong> ${frequencia}</p>
+                    <p><strong>Tipo de Partida:</strong> ${tipoPartida}</p>
+                    <p><strong>Motivação:</strong> ${motivacao}</p>
+                </div>
+            `;
+            dadosUsuarioDiv.innerHTML = html;
+        }
+
+        document.addEventListener("DOMContentLoaded", obterDadosUsuario);
 
     function obterRankingProblema() {
         fetch('/medidas/buscar/rankingProblema', { cache: 'no-store' }).then(function (response) {

@@ -80,16 +80,15 @@
         </div>
         <div class="explicacao">
             <h2>Vamos lá</h2>
-            <h2>O sistema irá fazer 120 jogadas aleatórias, Depois disso você jogará contra o Stockfish, Irei te
-                acompanhar, você também pode selecionar o nível do Stockfish de 1 a 17</h2>
-            <input type="number" id="input_nivel" placeholder="1 a 17"><button onclick="mudardepth()">Enviar</button>
-            <button onclick="mostrarJogadas()">Jogadas Anteriores</button>
-            <button onclick="mostrarMelhorJogada()">Melhor Jogadas</button>
-            <div id="alerta"></div>
-            <div id="message"></div>
-            <div id="bestMove" style="display: none;"></div>
-            <div id="jogadas_anteriores" style="display: none;"></div>
-            <div id="melhoresJogadas" style="display: none;"></div>
+            <p>O sistema irá fazer 120 jogadas aleatórias, Depois disso você jogará contra o Stockfish, Se quiser você pode acompanhar as análise</p>
+            <button onclick="mostrarMelhorJogada()">Acompanhar análises</button>
+            <div id="analise" class="rdd">
+                <div id="alerta"></div>
+                <div id="message"></div>
+                <div id="bestMove"></div>
+                <div id="avaliar"></div>
+                <input type="number" id="input_nivel" placeholder="Profundidade"><button onclick="mudardepth()">Enviar</button>
+            </div>
         </div>
     </div>
 </body>
@@ -125,6 +124,11 @@
                     alert('Erro');
                 }
             })
+    }
+    function inicializarAvaliacao() {
+        var fenInicial = 'startpos';
+        engine.postMessage('position ' + fenInicial);
+        engine.postMessage(`go depth 10`);
     }
     function verificarFimDeJogo() {
         if (game.in_checkmate()) {
@@ -187,10 +191,31 @@
     engine.postMessage(`go depth 4`);
 
     engine.onmessage = function (event) {
-        var melhorJogada = event.data.split(' ')[1];
-        bestMoveElement.innerText = 'Melhor jogada: ' + melhorJogada;
-    };
+        var message = event.data;
 
+        if (message.startsWith('info')) {
+            var parts = message.split(' ');
+            for (var i = 0; i < parts.length; i++) {
+                if (parts[i] === 'cp') { // cp = centipawns, indicative of positional evaluation
+                    var eval = parseInt(parts[i + 1], 10);
+                    var evalInPawns = eval / 100;
+                    mostrarAvaliacao(evalInPawns.toFixed(2)); // Convert to 2 decimal places
+                    break;
+                } else if (parts[i] === 'mate') { // mate = checkmate evaluation
+                    var mate = parts[i + 1];
+                    mostrarAvaliacao('Mate in ' + mate);
+                    break;
+                }
+            }
+        } else if (message.startsWith('bestmove')) {
+            var melhorJogada = message.split(' ')[1];
+            bestMoveElement.innerText = 'Melhor jogada: ' + melhorJogada;
+        }
+    };
+    function mostrarAvaliacao(evaluation) {
+        var messageElement = document.getElementById('avaliar');
+        messageElement.innerText = 'Avaliação da posição: ' + evaluation;
+    }
     var jogo = new Chess(tabuleiro); // Inicializar o jogo com a posição aleatória
     var config = {
         position: tabuleiro,
@@ -210,8 +235,6 @@
                 var melhorJogada = bestMoveElement.innerText.split(' ')[2]; // Usar a referência armazenada
                 lista_movimentos.push(source + target);
                 lista_melhores.push(melhorJogada)
-                jogadas_anteriores.innerHTML = `Suas jogadas ${lista_movimentos}`;
-                melhoresJogadas.innerHTML = `Jodas do engine ${lista_melhores}`
 
                 if (jogo.in_checkmate()) {
                     stopTimer()
@@ -254,12 +277,8 @@
         }
     }
     };
-    function mostrarJogadas() {
-        jogadas_anteriores.style.display = 'block'
-        melhoresJogadas.style.display = 'block'
-    }
     function mostrarMelhorJogada() {
-        bestMove.style.display = 'block'
+        analise.style.display = 'block'
     }
     function calcularAcertos() {
         var qtdmovimentos = lista_movimentos.length

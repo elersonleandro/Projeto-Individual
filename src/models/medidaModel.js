@@ -1,5 +1,27 @@
 var database = require("../database/config");
+function obterDadosUsuario(idUsuario) {
+    var instrucaoSql = `SELECT 
+    u.nome, 
+    t.fkjogo,
+    COUNT(t.id) AS tentativas, 
+    AVG(t.porcentAcertos) AS acertos,
+    min(t.tempo) as menortempo,
+    p.*
+FROM 
+    usuario AS u 
+JOIN 
+    TentativaJogo AS t ON u.id = t.fkusuario 
+JOIN 
+    preferencias AS p ON u.id = p.idPreferencia
+WHERE 
+    u.id = ${idUsuario}
+GROUP BY 
+    u.nome, t.fkjogo, p.idPreferencia, p.experiencia, p.frequencia, p.tipoPartida, p.motivacao;`;
 
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+
+}
 function buscarExperiencia() {
     var instrucaoSql = `SELECT
     (SELECT COUNT(*) FROM preferencias WHERE experiencia = 'Iniciante') AS iniciante,
@@ -45,7 +67,7 @@ function buscarMotivo() {
     return database.executar(instrucaoSql);
 }
 
-function buscarRankingProblema(){
+function buscarRankingProblema() {
     var instrucaoSql = `select u.nome, t.tempo from TentativaJogo as t 
     join usuario as u 
     on u.id = t.fkusuario
@@ -55,7 +77,7 @@ function buscarRankingProblema(){
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
 }
-function buscarRankingPartida(){
+function buscarRankingPartida() {
     var instrucaoSql = `select u.nome, t.tempo from TentativaJogo as t 
     join usuario as u 
     on u.id = t.fkusuario
@@ -80,6 +102,7 @@ function buscarMedidasEmTempoReal(idAquario) {
 }
 
 module.exports = {
+    obterDadosUsuario,
     buscarExperiencia,
     buscarFrequencia,
     buscarTipo,
