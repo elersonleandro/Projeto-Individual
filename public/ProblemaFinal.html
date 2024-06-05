@@ -97,7 +97,7 @@
 <script>
     const timer = document.querySelector('.timer');
     var nivel = 8;
-    var bestMoveElement = document.getElementById('bestMove'); // Armazenar referência ao elemento DOM
+    var bestMoveElement = document.getElementById('bestMove');
     var porcentagemAcerto = 0
     function finalizar() {
         var tempo = Number(contadorValue)
@@ -166,7 +166,7 @@
     }
 
     function movimentoEngine() {
-        var melhorJogada = bestMoveElement.innerText.split(' ')[2]; // Usar a referência armazenada
+        var melhorJogada = bestMoveElement.innerText.split(' ')[2];
         var inicio = melhorJogada.slice(0, 2);
         var fim = melhorJogada.slice(2, 4);
         jogo.move({
@@ -196,10 +196,10 @@
         if (message.startsWith('info')) {
             var parts = message.split(' ');
             for (var i = 0; i < parts.length; i++) {
-                if (parts[i] === 'cp') { // cp = centipawns, indicative of positional evaluation
+                if (parts[i] === 'cp') {
                     var eval = parseInt(parts[i + 1], 10);
                     var evalInPawns = eval / 100;
-                    mostrarAvaliacao(evalInPawns.toFixed(2)); // Convert to 2 decimal places
+                    mostrarAvaliacao(evalInPawns.toFixed(2)); 
                     break;
                 } else if (parts[i] === 'mate') { // mate = checkmate evaluation
                     var mate = parts[i + 1];
@@ -216,7 +216,7 @@
         var messageElement = document.getElementById('avaliar');
         messageElement.innerText = 'Avaliação da posição: ' + evaluation;
     }
-    var jogo = new Chess(tabuleiro); // Inicializar o jogo com a posição aleatória
+    var jogo = new Chess(tabuleiro); 
     var config = {
         position: tabuleiro,
         draggable: true,
@@ -232,7 +232,7 @@
 
                 engine.postMessage('position fen ' + tabuleiro);
                 engine.postMessage('go movetime 1');
-                var melhorJogada = bestMoveElement.innerText.split(' ')[2]; // Usar a referência armazenada
+                var melhorJogada = bestMoveElement.innerText.split(' ')[2]; 
                 lista_movimentos.push(source + target);
                 lista_melhores.push(melhorJogada)
 
@@ -263,17 +263,17 @@
                         message.innerHTML = 'Parabéns! Você fez a jogada correta!';
                         setTimeout(() => {
                             movimentoEngine();
-                        }, 1000); // Remova as aspas em torno do número para corrigir o atraso
+                        }, 1000); 
                     } else {
                         message.innerHTML = 'Errou';
                         setTimeout(() => {
                             movimentoEngine();
-                        }, 1000); // Remova as aspas em torno do número para corrigir o atraso
+                        }, 1000); 
                     }
                 }
                 return false;
         } else {
-            return 'snapback'; // Retorna a peça para a posição original
+            return 'snapback';
         }
     }
     };

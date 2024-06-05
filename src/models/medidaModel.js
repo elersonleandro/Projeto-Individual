@@ -9,7 +9,7 @@ function obterDadosUsuario(idUsuario) {
     p.*
 FROM 
     usuario AS u 
-JOIN 
+left JOIN 
     TentativaJogo AS t ON u.id = t.fkusuario 
 JOIN 
     preferencias AS p ON u.id = p.idPreferencia
@@ -68,22 +68,36 @@ function buscarMotivo() {
 }
 
 function buscarRankingProblema() {
-    var instrucaoSql = `select u.nome, t.tempo from TentativaJogo as t 
-    join usuario as u 
-    on u.id = t.fkusuario
-    where fkjogo = 1
-    order by t.tempo
-    limit 10;`
+    var instrucaoSql = `SELECT u.nome, tj.tempo
+    FROM TentativaJogo tj
+    JOIN (
+        SELECT fkusuario, MIN(tempo) AS min_tempo
+        FROM TentativaJogo
+        WHERE fkjogo = 1
+        GROUP BY fkusuario
+    ) AS subquery
+    ON tj.fkusuario = subquery.fkusuario AND tj.tempo = subquery.min_tempo
+    JOIN usuario u
+    ON tj.fkusuario = u.id
+    WHERE tj.fkjogo = 1
+    ORDER BY tj.tempo;`
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
 }
 function buscarRankingPartida() {
-    var instrucaoSql = `select u.nome, t.tempo from TentativaJogo as t 
-    join usuario as u 
-    on u.id = t.fkusuario
-    where fkjogo = 2
-    order by t.tempo
-    limit 10;`
+    var instrucaoSql = `SELECT u.nome, tj.tempo
+    FROM TentativaJogo tj
+    JOIN (
+        SELECT fkusuario, MIN(tempo) AS min_tempo
+        FROM TentativaJogo
+        WHERE fkjogo = 2
+        GROUP BY fkusuario
+    ) AS subquery
+    ON tj.fkusuario = subquery.fkusuario AND tj.tempo = subquery.min_tempo
+    JOIN usuario u
+    ON tj.fkusuario = u.id
+    WHERE tj.fkjogo = 2
+    ORDER BY tj.tempo;`
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
 }

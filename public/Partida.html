@@ -97,7 +97,7 @@
     var nivel = 1;
     var niveldica = 10;
     var porcentagemAcerto = 0;
-    var bestMoveElement = document.getElementById('bestMove'); // Armazenar referência ao elemento DOM
+    var bestMoveElement = document.getElementById('bestMove'); 
     function acompanhar() {
         analise.style.display = 'block'
     }
@@ -131,7 +131,7 @@
     var engine = new Worker('js/stockfish.js');
 
     function movimentoEngine() {
-        var melhorJogada = bestMoveElement.innerText.split(' ')[2]; // Usar a referência armazenada
+        var melhorJogada = bestMoveElement.innerText.split(' ')[2];
         var inicio = melhorJogada.slice(0, 2);
         var fim = melhorJogada.slice(2, 4);
         jogo.move({
@@ -144,7 +144,6 @@
         engine.postMessage('position fen ' + tabuleiro);
         engine.postMessage(`go depth ${niveldica}`);
     }
-    // Função para configurar a posição inicial e começar a avaliação
     function inicializarAvaliacao() {
         var fenInicial = 'startpos';
         engine.postMessage('position ' + fenInicial);
@@ -158,12 +157,12 @@
         if (message.startsWith('info')) {
             var parts = message.split(' ');
             for (var i = 0; i < parts.length; i++) {
-                if (parts[i] === 'cp') { // cp = centipawns, indicative of positional evaluation
+                if (parts[i] === 'cp') { 
                     var eval = parseInt(parts[i + 1], 10);
                     var evalInPawns = eval / 100;
-                    mostrarAvaliacao(evalInPawns.toFixed(2)); // Convert to 2 decimal places
+                    mostrarAvaliacao(evalInPawns.toFixed(2)); 
                     break;
-                } else if (parts[i] === 'mate') { // mate = checkmate evaluation
+                } else if (parts[i] === 'mate') {
                     var mate = parts[i + 1];
                     mostrarAvaliacao('Mate in ' + mate);
                     break;
@@ -180,10 +179,9 @@
         messageElement.innerText = 'Avaliação da posição: ' + evaluation;
     }
 
-    // Configuração do tabuleiro de xadrez
-    var jogo = new Chess(); // Inicializar o jogo com o tabuleiro padrão
+    var jogo = new Chess(); 
     var config = {
-        position: 'start', // Definindo a posição inicial como a posição padrão de um jogo de xadrez
+        position: 'start', 
         draggable: true,
         onDrop: function (source, target) {
             var movimento = jogo.move({
@@ -231,7 +229,6 @@
                         }, 1000);
                     }
                 }
-                // Avaliar a posição após cada jogada
                 avaliarPosicao();
             } else {
                 return 'snapback';
@@ -246,12 +243,10 @@
         engine.postMessage(`go depth ${niveldica}`);
     }
 
-    // Inicialização do tabuleiro
     var lista_melhores = [];
     var lista_movimentos = [];
     var board = Chessboard('myBoard', config);
 
-    // Funções de timer
     let intervalId;
     let contadorValue;
     const startTimer = () => {
@@ -267,7 +262,6 @@
         alert(contadorValue);
     };
 
-    // Inicializar a avaliação ao carregar a página
     window.onload = function () {
         inicializarAvaliacao();
     };

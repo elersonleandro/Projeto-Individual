@@ -1,3 +1,10 @@
+body{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #EAEBEC;
+}
+
 .conteiner{
     display: flex;
     padding: 0 0 0 17vw;
@@ -5,6 +12,7 @@
     justify-content: space-evenly;
     padding-top: 10vh;
     width: 83vw;
+    background-color: transparent;
 }
 .tab-info{
     margin-right: 5%;
@@ -18,6 +26,12 @@
     height: 50vh;
     width: 41vw;
     padding: 2%;
+    background-color: #EAEBEC;
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 30px;
 }
 
 .explicacao input{

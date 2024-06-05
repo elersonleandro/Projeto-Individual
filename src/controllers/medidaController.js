@@ -24,7 +24,25 @@ function obterDadosUsuario(req, res) {
                         motivacao: resultado[0].motivacao,
                     });
                     console.log(res)
-                } else if (resultado.length == 0) {
+
+                } 
+                else if (resultado.length == 1){
+                    console.log(resultado);
+                    res.json({
+                        nome: resultado[0].nome,
+                        tentativasProblemas: resultado[0].tentativas,
+                        acertosProblemas: resultado[0].acertos,
+                        // acertosPartidas: resultado[1].acertos,
+                        menorTempoProblemas: resultado[0].menortempo,
+                        // menorTempoPartida: resultado[1].menortempo,
+                        idPreferencia: resultado[0].idPreferencia,
+                        experiencia: resultado[0].experiencia,
+                        frequencia: resultado[0].frequencia,
+                        tipoPartida: resultado[0].tipoPartida,
+                        motivacao: resultado[0].motivacao,
+                    });
+                }
+                else if (resultado.length == 0) {
                     res.status(403).send("Email e/ou senha inválido(s)");
                 }
                 else {

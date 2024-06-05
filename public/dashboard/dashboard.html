@@ -28,8 +28,6 @@
 
 <!-- <body onload=" atualizarFeed()"> -->
 
-<body>
-
     <body>
         <nav class="menu-lateral">
 
@@ -236,7 +234,7 @@
     obterRankingPartida()
 
     var nome
-    var tentativasProblemas
+    var tentativasProblemas = 0
     var tentativasPartidas
     var acertosProblemas
     var acertosPartidas
@@ -288,28 +286,77 @@
 
     }
     function atualizarHTML() {
-            const dadosUsuarioDiv = document.getElementById("usuario");
-            const html = `
-                <div class="user-data">
-                    <h2>Dados do Usuário</h2>
-                    <p><strong>ID:</strong> ${idPreferencia}</p>
-                    <p><strong>Nome:</strong> ${nome}</p>
-                    <p><strong>Xeque-Mate Problemas:</strong> ${tentativasProblemas}</p>
-                    <p><strong>Xeque-Mate Partidas:</strong> ${tentativasPartidas}</p>
-                    <p><strong>Acertos Problemas:</strong> ${acertosProblemas}%</p>
-                    <p><strong>Acertos Partidas:</strong> ${acertosPartidas}%</p>
-                    <p><strong>Menor Tempo Problemas:</strong> ${menorTempoProblema} segundos</p>
-                    <p><strong>Menor Tempo Partida:</strong> ${menorTempoPartida} segundos</p>
-                    <p><strong>Experiência:</strong> ${experiencia}</p>
-                    <p><strong>Frequência:</strong> ${frequencia}</p>
-                    <p><strong>Tipo de Partida:</strong> ${tipoPartida}</p>
-                    <p><strong>Motivação:</strong> ${motivacao}</p>
-                </div>
-            `;
-            dadosUsuarioDiv.innerHTML = html;
-        }
+        const dadosUsuarioDiv = document.getElementById("usuario");
+        var html = ''
 
-        document.addEventListener("DOMContentLoaded", obterDadosUsuario);
+        if (tentativasPartidas > 0 && tentativasProblemas > 0) {
+            html = `
+            <div class="user-data">
+                <h2>Dados do Usuário</h2>
+                <p><strong>ID:</strong> ${idPreferencia}</p>
+                <p><strong>Nome:</strong> ${nome}</p>
+                <p><strong>Xeque-Mate Problemas:</strong> ${tentativasProblemas}</p>
+                <p><strong>Xeque-Mate Partidas:</strong> ${tentativasPartidas}</p>
+                <p><strong>Acertos Problemas:</strong> ${acertosProblemas}%</p>
+                <p><strong>Acertos Partidas:</strong> ${acertosPartidas}%</p>
+                <p><strong>Menor Tempo Problemas:</strong> ${menorTempoProblema} segundos</p>
+                <p><strong>Menor Tempo Partida:</strong> ${menorTempoPartida} segundos</p>
+                <p><strong>Experiência:</strong> ${experiencia}</p>
+                <p><strong>Frequência:</strong> ${frequencia}</p>
+                <p><strong>Tipo de Partida:</strong> ${tipoPartida}</p>
+                <p><strong>Motivação:</strong> ${motivacao}</p>
+                </div>
+                `;
+        }
+        else if (tentativasPartidas > 0) {
+            html = `
+            <div class="user-data">
+                <h2>Dados do Usuário</h2>
+                <p><strong>ID:</strong> ${idPreferencia}</p>
+                <p><strong>Nome:</strong> ${nome}</p>
+                <p><strong>Xeque-Mate Partidas:</strong> ${tentativasPartidas}</p>
+                <p><strong>Acertos Partidas:</strong> ${acertosPartidas}%</p>
+                <p><strong>Menor Tempo Partida:</strong> ${menorTempoPartida} segundos</p>
+                <p><strong>Experiência:</strong> ${experiencia}</p>
+                <p><strong>Frequência:</strong> ${frequencia}</p>
+                <p><strong>Tipo de Partida:</strong> ${tipoPartida}</p>
+                <p><strong>Motivação:</strong> ${motivacao}</p>
+                </div>
+                `;
+        }
+        else if (tentativasProblemas > 0) {
+            html = `
+            <div class="user-data">
+                <h2>Dados do Usuário</h2>
+                <p><strong>ID:</strong> ${idPreferencia}</p>
+                <p><strong>Nome:</strong> ${nome}</p>
+                <p><strong>Xeque-Mate Problemas:</strong> ${tentativasProblemas}</p>
+                <p><strong>Acertos Problemas:</strong> ${acertosProblemas}%</p>
+                <p><strong>Menor Tempo Problemas:</strong> ${menorTempoProblema} segundos</p>
+                <p><strong>Experiência:</strong> ${experiencia}</p>
+                <p><strong>Frequência:</strong> ${frequencia}</p>
+                <p><strong>Tipo de Partida:</strong> ${tipoPartida}</p>
+                <p><strong>Motivação:</strong> ${motivacao}</p>
+                </div>
+                `;
+        }
+        else {
+            html = `
+            <div class="user-data">
+                <h2>Dados do Usuário</h2>
+                <p><strong>ID:</strong> ${idPreferencia}</p>
+                <p><strong>Nome:</strong> ${nome}</p>
+                <p><strong>Experiência:</strong> ${experiencia}</p>
+                <p><strong>Frequência:</strong> ${frequencia}</p>
+                <p><strong>Tipo de Partida:</strong> ${tipoPartida}</p>
+                <p><strong>Motivação:</strong> ${motivacao}</p>
+                </div>
+                `;
+        }
+        usuario.innerHTML = html;
+    }
+
+    document.addEventListener("DOMContentLoaded", obterDadosUsuario);
 
     function obterRankingProblema() {
         fetch('/medidas/buscar/rankingProblema', { cache: 'no-store' }).then(function (response) {
@@ -430,10 +477,10 @@
         // Inserindo valores recebidos em estrutura para plotar o gráfico
         for (let i = 0; i < resposta.length; i++) {
             var registro = resposta[i];
-            dados.datasets[0].data[0] += parseInt(registro.iniciante);
-            dados.datasets[0].data[1] += parseInt(registro.mestre);
-            dados.datasets[0].data[2] += parseInt(registro.intermediario);
-            dados.datasets[0].data[3] += parseInt(registro.avancado);
+            dados.datasets[0].data[0] = registro.iniciante
+            dados.datasets[0].data[1] = registro.mestre
+            dados.datasets[0].data[2] = registro.intermediario
+            dados.datasets[0].data[3] = registro.avancado
         }
 
         console.log('----------------------------------------------');
@@ -513,13 +560,11 @@
         console.log(resposta);
 
         // Inserindo valores recebidos em estrutura para plotar o gráfico
-        for (let i = 0; i < resposta.length; i++) {
-            var registro = resposta[i];
-            dados.datasets[0].data[0] += parseInt(registro.diariamente);
-            dados.datasets[0].data[1] += parseInt(registro.semanalmente);
-            dados.datasets[0].data[2] += parseInt(registro.mensalmente);
-            dados.datasets[0].data[3] += parseInt(registro.raramente);
-        }
+        var registro = resposta[0];
+        dados.datasets[0].data[0] = registro.diariamente
+        dados.datasets[0].data[1] = registro.semanalmente
+        dados.datasets[0].data[2] = registro.mensalmente
+        dados.datasets[0].data[3] = registro.raramente
 
         console.log('----------------------------------------------');
         console.log('O gráfico será plotado com os respectivos valores:');
@@ -596,13 +641,13 @@
         console.log(resposta);
 
         // Inserindo valores recebidos em estrutura para plotar o gráfico
-        for (let i = 0; i < resposta.length; i++) {
-            var registro = resposta[i];
-            dados.datasets[0].data[0] += parseInt(registro.casual);
-            dados.datasets[0].data[1] += parseInt(registro.classicas);
-            dados.datasets[0].data[2] += parseInt(registro.problemas);
-            dados.datasets[0].data[3] += parseInt(registro.rapidas);
-        }
+
+        var registro = resposta[0]
+        dados.datasets[0].data[0] = registro.casual
+        dados.datasets[0].data[1] = registro.classicas
+        dados.datasets[0].data[2] = registro.problemas
+        dados.datasets[0].data[3] = registro.rapidas
+
 
         console.log('----------------------------------------------');
         console.log('O gráfico será plotado com os respectivos valores:');
@@ -679,13 +724,11 @@
         console.log(resposta);
 
         // Inserindo valores recebidos em estrutura para plotar o gráfico
-        for (let i = 0; i < resposta.length; i++) {
-            var registro = resposta[i];
-            dados.datasets[0].data[0] += parseInt(registro.diversao);
-            dados.datasets[0].data[1] += parseInt(registro.desafio);
-            dados.datasets[0].data[2] += parseInt(registro.competicao);
-            dados.datasets[0].data[3] += parseInt(registro.aprendizado);
-        }
+        var registro = resposta[0]
+        dados.datasets[0].data[0] = registro.diversao
+        dados.datasets[0].data[1] = registro.desafio
+        dados.datasets[0].data[2] = registro.competicao
+        dados.datasets[0].data[3] = registro.aprendizado
 
         console.log('----------------------------------------------');
         console.log('O gráfico será plotado com os respectivos valores:');

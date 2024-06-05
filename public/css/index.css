@@ -139,7 +139,7 @@ footer img{
 .containervoc {
     display: flex;
     background-color: #312E2C;
-    height: calc(100vh - 91px);
+    height: 100vh;
     justify-content: space-around;
     display: flex;
     flex-direction: row;
@@ -192,18 +192,18 @@ button {
 
 .frame3 {
     display: flex;
-    height: 80vh;
     flex-direction: row;
-    justify-content: space-evenly;
     align-items: center;
+    gap: 40px;
 }
 .frame3pai{
     display: flex;
     flex-direction: column;
-    justify-content: space-evenly;  
     align-items: center;  
     background-color: #312E2C;
     padding: 10px;
+    gap: 40px;
+    height: 150vh;
 }
 .frame3pai h1{
     font-size: 50px;
